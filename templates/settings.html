@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block Main %}
+    <div class="col-sm-9">
+        <h4><small>Settings</small></h4>
+        <hr>
+        <button class="btn btn-default">Sign Out</button>
+    </div>
+{% endblock %}
+
+{% block end %}
+    {% if session.logged_in %}
+        <script>blurFunction(0);</script>
+    {% else %}
+        <script>blurFunction(1);</script>
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <H2>Login Now!</H2>
+                <hr>
+                <h4>You must be logged in to use</h4>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block Main %}
+    <script src="{{ url_for('static', filename='js/register.js') }}"></script>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <form action="{{ url_for('register') }}" method="post">
+                    <fieldset><legend class="text-left">Register : Well Come To The Think Stack</legend>
+                        <div class="form-group">
+                            <label for="lastname"><span class="req">* </span> ID: <small>This will be your login id</small></label>
+                            <input class="form-control" type="text" name="id" id="id" placeholder="" minlength="5" maxlength="15" required />
+                            <div id="errLast"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username"><span class="req">* </span> User name: </label>
+                            <input class="form-control" type="text" name="username" id="username" placeholder="" required />
+                            <div id="errLast"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password"><span class="req">* </span> Password: </label>
+                            <input required name="password" type="password" class="form-control inputpass" minlength="5" maxlength="15"  id="password" /> </p>
+
+                            <label for="password"><span class="req">* </span> Password Confirm: </label>
+                            <input required name="password-confirm" type="password" class="form-control inputpass" minlength="5" maxlength="15" placeholder="Enter again to validate"  id="password-confirm" onkeyup="checkPass(); return false;" />
+                            <span id="confirmMessage" class="confirmMessage"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email"><span class="req">* </span> Email Address: </label>
+                            <input class="form-control" required type="text" name="email" id = "email" onchange="validateEmail(this);" />
+                            <div class="status" id="status"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mobile"><span class="req">* </span> Phone Number: </label>
+                            <input required type="text" name="mobile" id="mobile" class="form-control phone" maxlength="28" onkeyup="phoneNumber(this);" placeholder="not used for marketing"/>
+                            <div class="status" id="phone-status"></div>
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <?php //$date_entered = date('m/d/Y H:i:s'); ?>
+                            <input type="hidden" value="<?php //echo $date_entered; ?>" name="dateregistered">
+                            <input type="hidden" value="0" name="activate" />
+                            <hr>
+                        </div>
+
+                        {% if register_error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+
+                        <div class="form-group">
+                            <input class="btn btn-success" type="submit" name="Register" value="Register">
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

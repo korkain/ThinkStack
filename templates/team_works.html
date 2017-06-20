@@ -1,0 +1,169 @@
+{% extends "layout.html" %}
+{% block Main %}
+    <div class="col-sm-9">
+        <h4><small>Team Works</small></h4>
+        <hr>
+        <div class="row">
+            <div class="col-sm-5">
+                <table class="table table-bordered">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    <form action="{{ url_for('config_team') }}" method="post" enctype="multipart/form-data" autocomplete="off">
+                        <tr>
+                            <th>Team Name : </th>
+                            <td><input type="text" placeholder="" name="teamname" class="form-control" autocomplete="off"></td>
+                        </tr>
+                        <tr>
+                            <th>Password : </th>
+                            <td><input type="password" placeholder="" name="teampassword" class="form-control" autocomplete="off"></td>
+                        </tr>
+                        <tr>
+                            <th>Function : </th>
+                            <td colspan="1">
+                                <div class="[ btn-group ]">
+                                    <button class="btn btn-default" type=submit name=submit value="create">Create</button>
+                                    <button class="btn btn-default" type=submit name=submit value="join">Join</button>
+                                    <button class="btn btn-default" type=submit name=submit value="leave">Leave</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </form>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-sm-5">
+                <table class="table table-bordered">
+                    <thead>
+                    </thead>
+                    <tbody>
+                    <form action="{{ url_for('change_notice') }}" method="post" enctype="multipart/form-data">
+                        <tr>
+                            <th>Notice : </th>
+                            <td><textarea cols="10" style="height:85px;" placeholder="" name="notice" class="form-control"></textarea></td>
+                        </tr>
+                        <tr>
+                            <th>Function : </th>
+                            <td colspan="1">
+                                <div class="[ btn-group ]">
+                                    <button class="btn btn-default" type=submit name=submit value="change">Chagne</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </form>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="well">
+                    <h4>Team : <b>{{ teamname }}</b></h4>
+                    <small>Members</small>
+                    <hr style="border:solid 1px #9d9d9d;">
+                    {% for member in members %}
+                        <h5>{{ member }}</h5>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="well">
+                    <h4>To Do</h4>
+                    <hr style="border:solid 1px #9d9d9d;">
+                    {% for entry in todoEntries %}
+                        <div class="well" style="background-color: seashell;">
+                            <form action="{{ url_for('team_work_execute') }}" method="post" enctype="multipart/form-data">
+                                <h4>{{ entry.subject }}</h4>
+                                <p>{{ entry.content }}</p>
+                                <b>Post by {{ entry.username }}</b><br>
+                                <small>{{ entry.writedate }}</small><br><br>
+                                <input type=hidden name=content value='{{ entry.content }}'>
+                                <input type=hidden name=ctype value='todo'>
+                                <input type=hidden name=subject value='{{ entry.subject }}'>
+                                <input type=hidden name=username value='{{ entry.username }}'>
+                                <input type=hidden name=writedate value='{{ entry.writedate }}'>
+                                <button class="btn btn-default" type=submit name=submit value="achieve">Achieve</button>
+                                <button class="btn btn-default" type=submit name=submit value="remove">Remove</button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <div class="well" style="background-color: seashell;">
+                            <em>Unbelievable. No works here so far</em>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="well">
+                    <h4>Doing</h4>
+                    <hr style="border:solid 1px #9d9d9d;">
+                    {% for entry in doingEntries %}
+                        <div class="well" style="background-color: seashell;">
+                            <form action="{{ url_for('team_work_execute') }}" method="post" enctype="multipart/form-data">
+                                <h4>{{ entry.subject }}</h4>
+                                <p>{{ entry.content }}</p>
+                                <b>Post by {{ entry.username }}</b><br>
+                                <small>{{ entry.writedate }}</small><br><br>
+                                <input type=hidden name=content value='{{ entry.content }}'>
+                                <input type=hidden name=ctype value='doing'>
+                                <input type=hidden name=subject value='{{ entry.subject }}''>
+                                <input type=hidden name=username value='{{ entry.username }}''>
+                                <input type=hidden name=writedate value='{{ entry.writedate }}''>
+                                <button class="btn btn-default" type=submit name=submit value="achieve">Achieve</button>
+                                <button class="btn btn-default" type=submit name=submit value="remove">Remove</button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <div class="well" style="background-color: oldlace;">
+                            <em>Unbelievable. No works here so far</em>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="well">
+                    <h4>Done</h4>
+                    <hr style="border:solid 1px #9d9d9d;">
+                    {% for entry in doneEntries %}
+                        <div class="well" style="background-color: seashell;">
+                            <form action="{{ url_for('team_work_execute') }}" method="post" enctype="multipart/form-data">
+                                <h4>{{ entry.subject }}</h4>
+                                <p>{{ entry.content }}</p>
+                                <b>Post by {{ entry.username }}</b><br>
+                                <small>{{ entry.writedate }}</small><br><br>
+                                <input type=hidden name=content value='{{ entry.content }}'>
+                                <input type=hidden name=ctype value='done'>
+                                <input type=hidden name=subject value='{{ entry.subject }}'>
+                                <input type=hidden name=username value='{{ entry.username }}'>
+                                <input type=hidden name=writedate value='{{ entry.writedate }}'>
+                                <button class="btn btn-default" type=submit name=submit value="achieve">Achieve</button>
+                                <button class="btn btn-default" type=submit name=submit value="remove">Remove</button>
+                            </form>
+                        </div>
+                    {% else %}
+                        <div class="well" style="background-color: floralwhite;">
+                            <em>Unbelievable. No works here so far</em>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block end %}
+    {% if session.logged_in %}
+        <script>blurFunction(0);</script>
+    {% else %}
+        <script>blurFunction(1);</script>
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <H2>Login Now!</H2>
+                <hr>
+                <h4>You must be logged in to use</h4>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

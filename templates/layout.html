@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<title>Think Stack</title>
+<meta name="viewport" content="witdh=device-width, initial-scale=1">
+<link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+<!--<link href="{{ url_for('static', filename='css/bootstrap-theme.css') }}" rel="stylesheet">-->
+<link href="{{ url_for('static', filename='style.css') }}" rel=stylesheet type=text/css>
+<script src="{{ url_for('static', filename='jquery.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+<script src="{{ url_for('static', filename='js/stylefunc.js') }}"></script>
+
+<div class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-2 sidenav">
+            <h1 style="color: #3e8f3e;"><b>Think Stack</b></h1>
+            <hr style="border:solid 1px #9d9d9d;">
+            {% if not session.logged_in %}
+                <form action="{{ url_for('login') }}" method=post>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active"><a>User</a></li>
+                        <br>
+                        <li>
+                            <div class="input-group">
+                                <input type=text class="form-control" name=id placeholder="Input Your ID">
+                                <span class="input-group-btn">
+                                    <input class="form-control" type=submit name=Login value="Login">
+                                </span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="input-group">
+                                <input type=password class="form-control" name=password  placeholder="Input Your Password">
+                                <span class="input-group-btn">
+                                    <a href="{{ url_for('register') }}" class="form-control">Register</a>
+                                </span>
+                            </div>
+                        </li>
+                        {% if error %}
+                            <li>
+                                <p class=error><strong>Error:</strong> {{ error }}</p>
+                            </li>
+                        {% else %}
+                            <br>
+                        {% endif %}
+                    </ul>
+                </form>
+            {% else %}
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a>User</a></li>
+                </ul>
+                <br>
+                <div class="well" style="background-color: white;">
+                    <div class="input-group">
+                        <a><b>{{ id }}</b></a>
+                        <span class="input-group-btn">
+                            <div class="input-group">
+                                <a href="{{ url_for('logout') }}" class="form-control">Logout</a>
+                            </div>
+                        </span>
+                    </div>
+                    <a>progress in works : <b>{{ works }}</b></a><br>
+                    <a><small>{{ email }}</small></a>
+                </div>
+            {% endif %}
+
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a>Menu</a></li>
+                <li><a href="/">Dashboard</a></li>
+                <li><a href="{{ url_for('my_works') }}">My Works</a></li>
+                <li><a href="{{ url_for('team_works') }}">Team Works</a></li>
+                <li><a href="{{ url_for('settings') }}">Settings</a></li>
+                <hr style="border:solid 1px #9d9d9d;">
+            </ul>
+
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search works..">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div><br>
+        </div>
+
+        <br>
+
+        <div id="main_container">
+            {% block Main %}
+            {% endblock %}
+        </div>
+
+        {% block end %}
+        {% endblock %}
+    </div>
+</div>
+
+<footer class="container-fluid">
+    <p>Service by Hongik.Univ</p>
+</footer>

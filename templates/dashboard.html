@@ -1,0 +1,159 @@
+{% extends "layout.html" %}
+{% block Main %}
+    <div class="col-sm-9">
+        <h4><small>Dashboard</small></h4>
+        <hr>
+        <h3>Common</h3>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="well">
+                    <h4>Team : <b>{{ teamname }}</b></h4>
+                    <small>Members</small>
+                    <hr style="border:solid 1px #9d9d9d;">
+                    <div class="well" style="background-color: floralwhite;">
+                        {% for member in members %}
+                            <h5>{{ member }}</h5>
+                        {% else %}
+                            <em>Unbelievable. No one here</em>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="well">
+                    <h4>Notice</h4>
+                    <hr style="border:solid 1px #9d9d9d;">
+                    <div class="well" style="background-color: white;">
+                        {{ notice }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3>Team Works</h3>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="well">
+                    <h4>To Do</h4>
+                    <hr style="border:solid 1px #9d9d9d;">
+                    {% for item in team_todoEntries %}
+                        <div class="well" style="background-color: white;">
+                            <h4>{{ item.subject }}</h4>
+                            <b>{{ item.username }}</b><br>
+                            <small>{{ item.writedate }}</small>
+                        </div>
+                    {% else %}
+                        <div class="well" style="background-color: floralwhite;">
+                            <em>Unbelievable. No works here so far</em>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="well">
+                    <h4>Doing</h4>
+                    <hr style="border:solid 1px #9d9d9d;">
+                    {% for item in team_doingEntries %}
+                        <div class="well" style="background-color: white;">
+                            <h4>{{ item.subject }}</h4>
+                            <b>{{ item.username }}</b><br>
+                            <small>{{ item.writedate }}</small>
+                        </div>
+                    {% else %}
+                        <div class="well" style="background-color: floralwhite;">
+                            <em>Unbelievable. No works here so far</em>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="well">
+                    <h4>Done</h4>
+                    <hr style="border:solid 1px #9d9d9d;">
+                    {% for item in team_doneEntries %}
+                        <div class="well" style="background-color: white;">
+                            <h4>{{ item.subject }}</h4>
+                            <b>{{ item.username }}</b><br>
+                            <small>{{ item.writedate }}</small>
+                        </div>
+                    {% else %}
+                        <div class="well" style="background-color: floralwhite;">
+                            <em>Unbelievable. No works here so far</em>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <h3>My Works</h3>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="well">
+                    <h4>To Do</h4>
+                    <hr style="border:solid 1px #9d9d9d;">
+                    {% for item in my_todoEntries %}
+                        <div class="well" style="background-color: white;">
+                            <h4>{{ item.subject }}</h4>
+                            <b>{{ item.username }}</b><br>
+                            <small>{{ item.writedate }}</small>
+                        </div>
+                    {% else %}
+                        <div class="well" style="background-color: floralwhite;">
+                            <em>Unbelievable. No works here so far</em>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="well">
+                    <h4>Doing</h4>
+                    <hr style="border:solid 1px #9d9d9d;">
+                    {% for item in my_doingEntries %}
+                        <div class="well" style="background-color: white;">
+                            <h4>{{ item.subject }}</h4>
+                            <b>{{ item.username }}</b><br>
+                            <small>{{ item.writedate }}</small>
+                        </div>
+                    {% else %}
+                        <div class="well" style="background-color: floralwhite;">
+                            <em>Unbelievable. No works here so far</em>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="well">
+                    <h4>Done</h4>
+                    <hr style="border:solid 1px #9d9d9d;">
+                    {% for item in my_doneEntries %}
+                        <div class="well" style="background-color: white;">
+                            <h4>{{ item.subject }}</h4>
+                            <b>{{ item.username }}</b><br>
+                            <small>{{ item.writedate }}</small>
+                        </div>
+                    {% else %}
+                        <div class="well" style="background-color: floralwhite;">
+                            <em>Unbelievable. No works here so far</em>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block end %}
+    {% if session.logged_in %}
+        <script>blurFunction(0);</script>
+    {% else %}
+        <script>blurFunction(1);</script>
+        <div class="modal-dialog">
+            <div class="modal-body">
+                <H2>Login Now!</H2>
+                <hr>
+                <h4>You must be logged in to use</h4>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
